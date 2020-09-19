@@ -1,0 +1,15 @@
+<!DOCTYPE html> 
+
+<html> 
+    <body> 
+    <ol> 
+    <!-- For loop logic of jinja template -->
+    {%for i in range(0, len)%} 
+        <h3>{{ tweetList[i] }}</h3> 
+        User: {{ userList[i] }} <br>
+        Date: {{ dateList[i] }} <br>
+    {%endfor%} 
+    </ol> 
+    
+    </body> 
+</html> 
