@@ -20,6 +20,7 @@ auth_api = API(auth)
 
 food_list = ["fried chicken", "ice cream", "salad", "lollipop", "mochi", "popcorn", "eggs"]
   
+<<<<<<< HEAD
 if len(food_list) > 0:
   for target in food_list:
     end_date = datetime.utcnow() - timedelta(days=30)
@@ -45,3 +46,10 @@ def hello():
 if __name__ == "__main__":
     app.run(
     port=int(os.getenv('PORT', 8080)), host=os.getenv('IP','0.0.0.0'))
+=======
+if len(account_list) > 0:
+  for target in account_list:
+    
+    for status in Cursor(auth_api.user_timeline, id=target).items():
+      print(status.text + "\n")
+>>>>>>> b33132831cde14bcb35135a45539c3f6c64557ae
