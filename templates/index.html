@@ -1,13 +1,17 @@
 <!DOCTYPE html> 
 
 <html> 
+    <head>
+        <link rel="stylesheet" href = {{ url_for('static', filename='style.css')}} />
+    </head>
     <body> 
+    <h1> Here Are Some Rad Food Tweets! </h1>
     <ol> 
     <!-- For loop logic of jinja template -->
     {%for i in range(0, len)%} 
         <h3>{{ tweetList[i] }}</h3> 
-        User: {{ userList[i] }} <br>
-        Date: {{ dateList[i] }} <br>
+        Written by {{ userList[i] }} <br>
+        {{ dateList[i] }} <br>
     {%endfor%} 
     </ol> 
     
