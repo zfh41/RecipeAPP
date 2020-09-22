@@ -30,10 +30,13 @@ def index():
     dateList=[]
     randNum = random.randrange(0, 7)
     end_date = datetime.utcnow() - timedelta(days=30)
-    tweets = Cursor(auth_api.search, q = food_list[randNum], lang="en").items(1)
+    tweets = Cursor(auth_api.search, q = food_list[randNum], tweet_mode="extended", lang="en").items(1)
       
     for status in tweets:
-        tweetList.append(status.text)
+        try:
+            tweetList.append(status.retweeted_status.full_text)
+        except AttributeError:  # Not a Retweet
+            tweetList.append(status.full_text)
         userList.append(status.user.screen_name)
         dateList.append(status.created_at.strftime('%m/%d/%Y, %H:%M:%S'))
     
