@@ -2,18 +2,39 @@
 
 <html> 
     <head>
-        <link rel="stylesheet" href = 'style.css' />
+        <style>
+        h1 {
+         text-align:center;
+         background-color: white;
+        }
+  
+        body {
+          background-color: #ffe6f9;
+          
+        }
+</style>
+
     </head>
     <body> 
     <h1> {{ title }} </h1>
-    <img src={{ imageURL }} />
+    <img src={{ imageURL }} align="left" />
     <ol> 
     <!-- For loop logic of jinja template -->
+    <h2> Yield: {{ servings }} servings </h2>
+    <h2>    Prep: {{ prepTime }} minutes </h2>
+    <br>
+    <br>
+    <p style="font-style: italic;"> Ingredients:</p>
     {%for i in range(0, len)%} 
         <h3>{{ ingredientList[i] }}</h3> 
     {%endfor%} 
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
     
-    <h3>{{ tweetList[0] }}</h3> 
+    <figcaption>{{ tweetList[0] }}</figcaption> 
         Written by {{ userList[0] }} <br>
         {{ dateList[0] }} <br>
     </ol> 

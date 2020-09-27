@@ -1,13 +1,11 @@
  
  
 
- h1 {
-  text-align:center;
- }
  body {
-                font-family: Helvetica;
-                color: black;
-                background-color: teal;
-                font-size: 96;
-                
+  background-color: lightblue;
+}
+
+h1 {
+  color: navy;
+  margin-left: 20px;
 }

@@ -33,19 +33,19 @@ auth_api = API(auth)
 @app.route('/')
 
 def index():
-    food_list = ["fried chicken", "ice cream", "salad", "lollipop", "mochi", "popcorn", "eggs"]
-    
+    food_list = ["fried chicken", "ice cream", "salad", "butter", "chocolate", "popcorn", "eggs", "yogurt", "fish"]
     
     tweetList=[]
     userList=[]
     dateList=[]
     
     ingredientList=[]
-    randNum = random.randrange(0, 7)
+    randNum = random.randrange(0, 9)
     end_date = datetime.utcnow() - timedelta(days=30)
     q = food_list[randNum]
     
     url = "https://api.spoonacular.com/recipes/findByIngredients?ingredients={}&apiKey={}".format(q, spoonacular_key)
+   
     
     tweets = Cursor(auth_api.search, q, tweet_mode="extended", lang="en").items(1)
     
@@ -56,23 +56,23 @@ def index():
     
     randN=random.randrange(0, jsonLength)
     
-    usedIngredientCount = int(json.dumps(json_body[randN]["usedIngredientCount"]))
-    print(usedIngredientCount)
-    missedIngredientCount = int(json.dumps(json_body[randN]["missedIngredientCount"]))
-    print(missedIngredientCount)
+    ident=str(json.dumps(json_body[0]["id"], indent=2))
     
-    for i in range(0, usedIngredientCount):
-        print(json.dumps(json_body[randN]["usedIngredients"][i]["original"], indent=2))
-        ingredientList.append(json.dumps(json_body[randN]["usedIngredients"][i]["original"]).strip("\""))
-
-    for i in range(0, missedIngredientCount):
-        print(json.dumps(json_body[randN]["missedIngredients"][i]["original"], indent=2))
-        ingredientList.append(json.dumps(json_body[randN]["missedIngredients"][i]["original"]).strip("\""))
+    newURL="https://api.spoonacular.com/recipes/{}/information?includeNutrition=false&apiKey={}".format(ident, spoonacular_key)
+    
+    response = requests.get(newURL)
+    json_body = response.json()
         
-    title=json.dumps(json_body[randN]["title"], indent=2)
+    
+    title=json.dumps(json_body["title"], indent=2)
     title=title.strip("\"")
-    print(json.dumps(json_body[randN]["image"]))
-    imageURL=json.dumps(json_body[randN]["image"]).strip("\"")
+    print(json.dumps(json_body["image"]))
+    imageURL=json.dumps(json_body["image"]).strip("\"")
+    servings=json.dumps(json_body["servings"])
+    prepTime=json.dumps(json_body["readyInMinutes"])
+    
+    for i in json_body["extendedIngredients"]:
+        ingredientList.append(i["original"])
     
       
     for status in tweets:
@@ -86,7 +86,8 @@ def index():
         if status.created_at < end_date:
             break
       
-    return flask.render_template("index.html", len = len(ingredientList), tweetList = tweetList, userList=userList, dateList=dateList, ingredientList=ingredientList, title=title,imageURL=imageURL)
+    return flask.render_template("index.html", len = len(ingredientList), tweetList = tweetList, userList=userList, \
+    ingredientList=ingredientList, dateList=dateList, servings=servings, prepTime=prepTime, title=title,imageURL=imageURL)
 
 # if __name__ == "__main__":
 app.run(
