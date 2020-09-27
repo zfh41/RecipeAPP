@@ -52,19 +52,27 @@ def index():
     response = requests.get(url)
     json_body = response.json()
     
-    for i in range(0, int(json.dumps(json_body[0]["usedIngredientCount"]))):
-        print(json.dumps(json_body[0]["usedIngredients"][i]["original"], indent=2))
-        ingredientList.append(json.dumps(json_body[0]["usedIngredients"][i]["original"]).strip("\""))
+    jsonLength=len(json_body)
+    
+    randN=random.randrange(0, jsonLength)
+    
+    usedIngredientCount = int(json.dumps(json_body[randN]["usedIngredientCount"]))
+    print(usedIngredientCount)
+    missedIngredientCount = int(json.dumps(json_body[randN]["missedIngredientCount"]))
+    print(missedIngredientCount)
+    
+    for i in range(0, usedIngredientCount):
+        print(json.dumps(json_body[randN]["usedIngredients"][i]["original"], indent=2))
+        ingredientList.append(json.dumps(json_body[randN]["usedIngredients"][i]["original"]).strip("\""))
 
-    for i in range(0, int(json.dumps(json_body[0]["missedIngredientCount"]))):
-        print(json.dumps(json_body[0]["missedIngredients"][i]["original"], indent=2))
-        ingredientList.append(json.dumps(json_body[0]["missedIngredients"][i]["original"]).strip("\""))
+    for i in range(0, missedIngredientCount):
+        print(json.dumps(json_body[randN]["missedIngredients"][i]["original"], indent=2))
+        ingredientList.append(json.dumps(json_body[randN]["missedIngredients"][i]["original"]).strip("\""))
         
-    print(json.dumps(json_body[0]["title"], indent=2))
-    title=json.dumps(json_body[0]["title"], indent=2)
+    title=json.dumps(json_body[randN]["title"], indent=2)
     title=title.strip("\"")
-    print(json.dumps(json_body[0]["image"]))
-    imageURL=json.dumps(json_body[0]["image"])
+    print(json.dumps(json_body[randN]["image"]))
+    imageURL=json.dumps(json_body[randN]["image"]).strip("\"")
     
       
     for status in tweets:
