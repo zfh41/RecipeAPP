@@ -12,6 +12,7 @@
           background-color: #ffe6f9;
           
         }
+
 </style>
 
     </head>
@@ -28,13 +29,14 @@
     {%for i in range(0, len)%} 
         <h3>{{ ingredientList[i] }}</h3> 
     {%endfor%} 
+    <pstyle="font-weight: bold;" style="font-size:15px"> Check out recipe: {{ spoonURL }} </pstyle>
     <br>
     <br>
     <br>
     <br>
     <br>
     
-    <figcaption>{{ tweetList[0] }}</figcaption> 
+    <p> <figcaption>{{ tweetList[0] }}</figcaption> </p>
         Written by {{ userList[0] }} <br>
         {{ dateList[0] }} <br>
     </ol> 

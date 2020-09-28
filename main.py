@@ -56,7 +56,7 @@ def index():
     
     randN=random.randrange(0, jsonLength)
     
-    ident=str(json.dumps(json_body[0]["id"], indent=2))
+    ident=str(json.dumps(json_body[randN]["id"], indent=2))
     
     newURL="https://api.spoonacular.com/recipes/{}/information?includeNutrition=false&apiKey={}".format(ident, spoonacular_key)
     
@@ -70,6 +70,7 @@ def index():
     imageURL=json.dumps(json_body["image"]).strip("\"")
     servings=json.dumps(json_body["servings"])
     prepTime=json.dumps(json_body["readyInMinutes"])
+    spoonURL=json.dumps(json_body["sourceUrl"])
     
     for i in json_body["extendedIngredients"]:
         ingredientList.append(i["original"])
@@ -87,7 +88,7 @@ def index():
             break
       
     return flask.render_template("index.html", len = len(ingredientList), tweetList = tweetList, userList=userList, \
-    ingredientList=ingredientList, dateList=dateList, servings=servings, prepTime=prepTime, title=title,imageURL=imageURL)
+    ingredientList=ingredientList, dateList=dateList, servings=servings, prepTime=prepTime, title=title,imageURL=imageURL, spoonURL=spoonURL)
 
 # if __name__ == "__main__":
 app.run(
