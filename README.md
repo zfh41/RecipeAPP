@@ -5,6 +5,7 @@ Flask <br />
 Tweepy<br />
 python-dotenv <br />
 AWS Cloud9 <br />
+Spoonacular API <br />
 TwitterAPI <br /> <br />
 
 
